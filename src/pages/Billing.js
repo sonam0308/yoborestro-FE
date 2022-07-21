@@ -2,15 +2,13 @@ import {
   Row,
   Col,
   Card,
-  Statistic,
   Button,
   Form,
   Input,
   Select,
 } from "antd";
-import { Link } from "react-router-dom";
-
 import { useState } from "react";
+import axios from "axios";
 
 const { Option } = Select;
 function Billing() {
@@ -21,19 +19,24 @@ function Billing() {
   const [isBlocked, setIsBlocked] = useState(true);
   const [isRemoved, setIsRemoved] = useState(true);
   const [profileImage, setProfileImage] = useState();
-  const [userType, setUsertype] = useState(['admin', 'bussinesOwner', 'agent', 'Customer']);
+  const [userType, setUsertype] = useState(['admin', 'bussinesOwner', 'agent', 'consumer', 'subAdmin']);
   const [onClickAdd, setOnClickAdd] = useState(false);
   const [selected, setSelected] = useState(userType[0]);
+  const [data, setData] = useState([])
 
-  const adminRegister = () => {
-    console.log("name", name)
-    console.log("email", email)
-    console.log("phone", phone)
-    console.log("password", password)
-    console.log("isBlocked", isBlocked)
-    console.log("isRemoved", isRemoved)
-    console.log("profileImage", profileImage)
-    console.log("userType", userType)
+  const adminRegister = async() => {
+    let body = {
+      name: name,
+      email: email,
+      phone: phone,
+      password: password,
+      userType: selected,
+      Dob: '03/08/1998'
+    }
+    console.log(process.env.REACT_APP_API_BASE_PATH);
+    const response = await axios.post(process.env.REACT_APP_API_BASE_PATH + 'register/user', body)
+    setData(response.data)
+    console.log(response.data.data);
   }
 
   return (
@@ -199,9 +202,7 @@ function Billing() {
                 </Col>
               </Row>
             </Form>
-            <Button type="primary" shape="round" size="large" style={{ alignItems: 'center' }}>
-              Submit
-            </Button>
+            <Button type="primary" onClick={adminRegister}>SUBMIT</Button>
           </>
         ) : ('')
       }
