@@ -21,6 +21,7 @@ import Main from "./components/layout/Main";
 import "antd/dist/antd.css";
 import "./assets/styles/main.css";
 import "./assets/styles/responsive.css";
+import KycTable from "./pages/KycTable";
 
 function App() {
   return (
@@ -32,7 +33,7 @@ function App() {
           <Route exact path="/dashboard" component={Home} />
           <Route exact path="/tables" component={Tables} />
           <Route exact path="/billing" component={Billing} />
-          <Route exact path="/rtl" component={Rtl} />
+          <Route exact path="/kyc" component={KycTable} />
           <Route exact path="/profile" component={Profile} />
           <Redirect from="*" to="/dashboard" />
         </Main>
